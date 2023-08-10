@@ -5,8 +5,8 @@ import QuestionForm from "../../components/QuestionForm/QuestionForm";
 import AnswerDisplay from "../../components/Answer/Answer";
 
 const Main = () => {
-  const [question, setQuestion] = useState('');
-  const [answer, setAnswer] = useState('');
+  
+  const [qaPairs, setQAPairs] = useState([]);
 
   const generateRandomAnswer = () => {
     // Replace this with your logic to generate a random answer
@@ -16,9 +16,11 @@ const Main = () => {
   };
 
   const handleQuestionSubmit = (submittedQuestion) => {
-    setQuestion(submittedQuestion);
-    const generatedAnswer = generateRandomAnswer();
-    setAnswer(generatedAnswer);
+    const newQAPair = {
+      question: submittedQuestion,
+      answer: generateRandomAnswer(),
+    };
+    setQAPairs([...qaPairs, newQAPair]);
   };
 
   return (
@@ -31,18 +33,18 @@ const Main = () => {
           height: "100vh",
         }}
       >
-        <Box component="main" sx={{ flexGrow: 1, p: 3 }}
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "flex-start",
-                alignItems: "center",
-                top: 0,
-            }}
-        >
-          {
-            question ? <AnswerDisplay question={question} answer={answer} /> : null
-          }
+        <Box component="main" style={{
+           float: "left",
+           padding: "2vh 2vw",
+        }}>
+          {qaPairs.map((qaPair, index) => (
+            <AnswerDisplay
+              key={index}
+              question={qaPair.question}
+              answer={qaPair.answer}
+            />
+          ))}
+
         </Box>
 
         <Box

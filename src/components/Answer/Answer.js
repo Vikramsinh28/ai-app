@@ -1,14 +1,11 @@
-import { Container, Stack, Typography } from '@mui/material';
+import { Avatar, Container, Stack, Typography } from '@mui/material';
 import React from 'react';
 
 const AnswerDisplay = ({ question, answer }) => {
   return (
     <Container  style={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "flex-start",
-        alignItems: "center",
-        top: 0,
+        float: "left",
+        marginTop : "3vh",
     }}>
         <Stack spacing={2} >
             <Stack direction="row" spacing={2} style={{
@@ -20,7 +17,7 @@ const AnswerDisplay = ({ question, answer }) => {
             }}>
 
                 <Typography variant="h6" component="div" gutterBottom >
-                        Q:
+                        <Avatar sx={{ bgcolor: '#0e0e0e', width: 24, height: 24, fontSize: 12 }}></Avatar>
                 </Typography>
                 <Typography variant="h6" component="div" gutterBottom>
                         {question}
@@ -36,9 +33,6 @@ const AnswerDisplay = ({ question, answer }) => {
                 top: 0,
             }}>
 
-                <Typography variant="h6" component="div" gutterBottom >
-                        A:
-                </Typography>
                 <Typography variant="h6" component="div" gutterBottom>
                         {answer}
                 </Typography>
