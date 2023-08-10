@@ -132,6 +132,7 @@ export default function MiniDrawer({children}) {
             AI WEB
           </Typography>
         </Toolbar>
+
       </AppBar>
       <Drawer variant="permanent" open={open}>
         <DrawerHeader>

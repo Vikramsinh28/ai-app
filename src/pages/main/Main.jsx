@@ -1,28 +1,24 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import Layout from "../../components/Layout/Layout";
-import { Box, TextField } from "@mui/material";
-import { IconButton, Tooltip } from "@mui/material";
-import { AddCircleOutline, SendAndArchiveOutlined } from "@mui/icons-material";
-import { makeStyles } from "@mui/styles";
-import { Input } from "@mui/material";
+import { Box } from "@mui/material";
+import QuestionForm from "../../components/QuestionForm/QuestionForm";
+import AnswerDisplay from "../../components/Answer/Answer";
 
 const Main = () => {
-  const [value, setValue] = useState("");
-  const [selectedFile, setSelectedFile] = useState(null);
-  const fileInputRef = useRef(null);
+  const [question, setQuestion] = useState('');
+  const [answer, setAnswer] = useState('');
 
-  const handleChange = (event) => {
-    setValue(event.target.value);
+  const generateRandomAnswer = () => {
+    // Replace this with your logic to generate a random answer
+    const answers = ['Yes', 'No', 'Maybe', 'Ask again later'];
+    const randomIndex = Math.floor(Math.random() * answers.length);
+    return answers[randomIndex];
   };
 
-  const handleClear = () => {
-    setValue("");
-  };
-
-  const handleFileSelect = (event) => {
-    console.log(event.target.files[0] , "selected");
-    alert(event.target.files[0].name + " selected");
-    setSelectedFile(event.target.files[0]);
+  const handleQuestionSubmit = (submittedQuestion) => {
+    setQuestion(submittedQuestion);
+    const generatedAnswer = generateRandomAnswer();
+    setAnswer(generatedAnswer);
   };
 
   return (
@@ -35,7 +31,19 @@ const Main = () => {
           height: "100vh",
         }}
       >
-        <Box component="main" sx={{ flexGrow: 1, p: 3 }}></Box>
+        <Box component="main" sx={{ flexGrow: 1, p: 3 }}
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "flex-start",
+                alignItems: "center",
+                top: 0,
+            }}
+        >
+          {
+            question ? <AnswerDisplay question={question} answer={answer} /> : null
+          }
+        </Box>
 
         <Box
           style={{
@@ -48,45 +56,7 @@ const Main = () => {
             marginLeft: "1vw",
           }}
         >
-          <Tooltip title="Add a file">
-            <IconButton
-              onClick={() => {
-                // Open the file input when the icon is clicked
-                if (fileInputRef.current) {
-                  fileInputRef.current.click();
-                }
-              }}
-            >
-              <AddCircleOutline
-                sx={{ color: "grey", fontSize: 23, marginRight: 1 }}
-              />
-
-              {/* The actual file input which is hidden */}
-
-              <input
-                type="file"
-                accept=".pdf,.doc,.docx,.png" // Specify the accepted file types
-                ref={fileInputRef}
-                style={{ display: "none" }}
-                onChange={handleFileSelect}
-              /> 
-              
-            </IconButton>
-          </Tooltip>
-
-          <TextField
-            label="Enter a Prompt here"
-            value={value}
-            onChange={handleChange}
-            fullWidth
-          />
-          <IconButton
-            onClick={handleClear}
-            disabled={value === ""}
-            style={{ marginLeft: 10 }}
-          >
-            <SendAndArchiveOutlined />
-          </IconButton>
+          <QuestionForm onSubmit={handleQuestionSubmit} />
         </Box>
       </Box>
     </Layout>
