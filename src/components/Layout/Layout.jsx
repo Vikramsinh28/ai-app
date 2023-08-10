@@ -16,13 +16,11 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
 import { Button, Stack } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import { Info, Message } from '@mui/icons-material';
 
-const drawerWidth = 240;
+const drawerWidth = 200;
 
 const openedMixin = (theme) => ({
   width: drawerWidth,
@@ -88,6 +86,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
     }),
   }),
 );
+
 
 export default function MiniDrawer({children}) {
   const theme = useTheme();
@@ -186,7 +185,6 @@ export default function MiniDrawer({children}) {
                   px: 2.5,
                   display   : 'flex',
                   alignItems : 'center',
-                  justifyContent : 'center'
                 }}
               >
                 <ListItemIcon
@@ -200,25 +198,31 @@ export default function MiniDrawer({children}) {
                 </ListItemIcon>
                 <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
                 
-                <Info sx={{ width: 20, height: 20 }} style = {{
-                  position : 'absolute',
-                  right : 10,
-                  color : 'grey'
-                }}
-                  onClick={() => {
-                    alert('info')
-                  }}
-                />
+                {
+                  open ? (
+                    <Info sx={{ width: 20, height: 20 }} style = {{
+                      position : 'absolute',
+                      right : 10,
+                      color : 'grey'
+                    }}
+                      onClick={() => {
+                        alert('info')
+                      }
+                    } />
+                  ) : null
+                }
 
               </ListItemButton>
             </ListItem>
           ))}
         </List> 
       </Drawer>
+      
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
         {children}
       </Box>
+
     </Box>
   );
 }
