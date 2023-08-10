@@ -26,7 +26,6 @@ const Main = () => {
   return (
     <Layout>
       <Box
-        sx={{ background: "#f7f7ff" }}
         style={{
           margin: "0%",
           borderRadius: "20px",
