@@ -1,14 +1,10 @@
-import React, { useState , useRef } from "react";
-import { TextField, Button } from "@mui/material";
+import React, { useState  } from "react";
+import { Button, TextareaAutosize } from "@mui/material";
 import { IconButton } from "@mui/material";
 import { SendAndArchiveOutlined } from "@mui/icons-material";
-import { Tooltip } from "@mui/material";
-import { AddCircleOutline } from "@mui/icons-material";
 
-const QuestionForm = ({ onSubmit }) => {
+const QuestionForm = ({ onSubmit , isFormEnabled }) => {
   const [question, setQuestion] = useState("");
-  const fileInputRef = useRef(null);
-  const [selectedFile, setSelectedFile] = useState(null);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -16,58 +12,32 @@ const QuestionForm = ({ onSubmit }) => {
     setQuestion("");
   };
 
-  const handleFileSelect = (event) => {
-    console.log(event.target.files[0] , "selected");
-    alert(event.target.files[0].name + " selected");
-    console.log(selectedFile)
-    setSelectedFile(event.target.files[0]);
-  };
 
   return (
     <form
       onSubmit={handleSubmit}
       style={{
         display: "flex",
-        justifyContent: "center",
         alignItems: "center",
-        position: "fixed",
-        bottom: 37,
-        width: "80vw",
+        justifyContent: "center"
       }}
     >
-      <Tooltip title="Add a file">
-        <IconButton
-          onClick={() => {
-            // Open the file input when the icon is clicked
-            if (fileInputRef.current) {
-              fileInputRef.current.click();
-            }
-          }}
-        >
-          <AddCircleOutline
-            sx={{ color: "grey", fontSize: 23, marginRight: 1 }}
-          />
+      <TextareaAutosize
+        style={{  
+          width: "55vw",
+          padding: "1vh 1vw",
+          paddingTop: "1vh",
+          fontSize: "1rem",
+          resize: "none",
+          borderRadius: "5px",
+        }}
 
-          {/* The actual file input which is hidden */}
-
-          <input
-            type="file"
-            accept=".pdf,.doc,.docx,.png" // Specify the accepted file types
-            ref={fileInputRef}
-            style={{ display: "none" }}
-            onChange={handleFileSelect}
-          />
-        </IconButton>
-      </Tooltip>
-
-      <TextField
-        label="Enter a Prompt here"
-        variant="outlined"
+        placeholder="Ask a question..."
         value={question}
         onChange={(e) => setQuestion(e.target.value)}
-        fullWidth
+        disabled={!isFormEnabled} // Disable the input when isFormEnabled is false
       />
-      <Button type="submit">
+      <Button type="submit" disabled={!isFormEnabled}>
         <IconButton style={{ marginLeft: 10 }}>
           <SendAndArchiveOutlined />
         </IconButton>
