@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Layout from "../../components/Layout/Layout";
-import { Box } from "@mui/material";
+import { Box , Button, Typography } from "@mui/material";
 import QuestionForm from "../../components/QuestionForm/QuestionForm";
 import AnswerDisplay from "../../components/Answer/Answer";
 
@@ -8,6 +8,22 @@ const Main = () => {
   
   const [qaPairs, setQAPairs] = useState([]);
   const [isFormEnabled, setIsFormEnabled] = useState(true);
+  const [modelSelectionCategory , setModelSelectionCategory] = useState([
+    {
+      id : 1,
+      category : "Personal",
+    },
+    {
+      id : 2,
+      category : "Public",
+    },
+    {
+      id : 3,
+      category : "Personal",
+    }
+  ]);
+
+  const [modelSelection , setModelSelection] = useState({})
 
 
   const [chatArray , setChatArray ] = useState([  
@@ -53,18 +69,35 @@ const Main = () => {
   };
 
   const handleQuestionSubmit = (submittedQuestion) => {
-    setIsFormEnabled(false); // Disable the form after question submission
-
+    // setIsFormEnabled(false); // Disable the form after question submission
     // Simulate fetching an answer (you would replace this with your actual logic)
-    setTimeout(() => {
-      const newQAPair = {
-        question: submittedQuestion,
-        answer: generateRandomAnswer(),
-      };
-      setQAPairs([...qaPairs, newQAPair]);
-      setIsFormEnabled(true); // Enable the form after receiving the answer
-    }); // Simulate a delay of 2 seconds
+
+    console.log("modelSelection" , modelSelection);
+
+    if(modelSelection === "" && modelSelection === null && modelSelection === undefined){
+      alert("Please select a model first");
+      console.log("modelSelection in if" , modelSelection);
+      setIsFormEnabled(false);
+    }else {
+      alert("Model Selected");
+      console.log("modelSelection in else" , modelSelection);
+      setTimeout(() => {
+        const newQAPair = {
+          question: submittedQuestion,
+          answer: generateRandomAnswer(),
+        };
+        setQAPairs([...qaPairs, newQAPair]);
+        setIsFormEnabled(true); // Enable the form after receiving the answer
+      }); // Simulate a delay of 2 seconds
+    }
+
   };
+
+  const handleModelSelection = (model) => {
+    setModelSelection(model);
+    alert("Model Selected");
+  }
+
 
 
   useEffect(() => {
@@ -84,6 +117,33 @@ const Main = () => {
            float: "left",
            padding: "2vh 2vw",
         }}>
+
+          <Typography variant="h4" style={{
+            fontSize: "1.5rem",
+          }}>
+             Select Model 
+          </Typography>
+
+
+          {
+            modelSelectionCategory.map((category , index) => (
+              <Button key={index} style={{
+                padding: "1vh 1vw",
+                margin: "1vh",
+                border : "1px solid #0e0e0e",
+                borderRadius: "20px",
+                cursor: "pointer",
+              }}
+
+              onClick={() => handleModelSelection(category)}
+
+              >
+                {category.category}
+              </Button>
+            ))
+          }
+
+
           {qaPairs.map((qaPair, index) => (
             <AnswerDisplay
               key={index}
@@ -102,7 +162,7 @@ const Main = () => {
             transform: "translate(-50%, -50%)"
           }}
         >
-          <QuestionForm onSubmit={handleQuestionSubmit} isFormEnabled={isFormEnabled} setIsFormEnabled = {setIsFormEnabled} />
+          <QuestionForm onSubmit={handleQuestionSubmit} isFormEnabled={isFormEnabled} setIsFormEnabled = {setIsFormEnabled} modelSelection = {modelSelection} />
         </Box>
 
       </Box> 

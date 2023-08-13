@@ -3,10 +3,19 @@ import { Button, TextareaAutosize } from "@mui/material";
 import { IconButton } from "@mui/material";
 import { SendAndArchiveOutlined } from "@mui/icons-material";
 
-const QuestionForm = ({ onSubmit , isFormEnabled }) => {
+const QuestionForm = ({ onSubmit , isFormEnabled , modelSelection }) => {
   const [question, setQuestion] = useState("");
 
   const handleSubmit = (e) => {
+
+    if(!question){
+      alert("Please enter a question")
+      return;
+    };
+    if(!modelSelection){
+      alert("Please select a model")
+      return;
+    };
     e.preventDefault();
     onSubmit(question);
     setQuestion("");
