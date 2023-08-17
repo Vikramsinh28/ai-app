@@ -29,7 +29,7 @@ const ChatModal = ({ open, handleClose, handleSubmit, formData, handleFormChange
           <Typography variant="h6" id="chat-modal-title">
             Chat Details
           </Typography>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} >
             <TextField
               label="Name"
               name="name"
@@ -52,9 +52,9 @@ const ChatModal = ({ open, handleClose, handleSubmit, formData, handleFormChange
               name="prompt"
               value={formData.prompt}
               onChange={handleFormChange}
-              style={{ width: '100%', padding: '10px', marginTop: '10px' }}
+              style={{ width: '100%', padding: '16.5px 14px', marginTop: '10px' }}
             />
-            <Button type="submit" variant="contained" color="primary">
+            <Button type="submit" variant="contained" color="primary" style={{width:'100%'}}>
               Save
             </Button>
           </form>
