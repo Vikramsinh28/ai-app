@@ -40,6 +40,7 @@ const AnswerDisplay = ({ question, answer }) => {
       style={{
         float: "left",
         marginTop: "3vh",
+        paddingLeft : 0
       }}
     >
       <Stack spacing={2}>

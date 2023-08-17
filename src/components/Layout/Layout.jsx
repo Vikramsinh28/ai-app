@@ -42,9 +42,9 @@ const closedMixin = (theme) => ({
     duration: theme.transitions.duration.leavingScreen,
   }),
   overflowX: 'hidden',
-  width: `calc(${theme.spacing(7)} + 1px)`,
+  width: `calc(${theme.spacing(4)} + 1px)`,
   [theme.breakpoints.up('sm')]: {
-    width: `calc(${theme.spacing(8)} + 1px)`,
+    width: `calc(${theme.spacing(6)} + 1px)`,
   },
 });
 
@@ -287,7 +287,7 @@ export default function MiniDrawer({children , chatArray , setChatArray , prompt
       </Drawer>
 
       <Drawer variant="permanent" anchor="right" open={rightDrawerOpen} style={{
-        width : rightDrawerWidth,
+        // width : rightDrawerWidth,
         zIndex : 29090,
       }}>
         <DrawerHeader>
